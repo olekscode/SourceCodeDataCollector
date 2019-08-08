@@ -3,6 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'name',
+		'protocol',
 		'sourceCode',
 		'linesOfCode'
 	],
@@ -27,6 +28,16 @@ MethodModel >> name [
 { #category : #accessing }
 MethodModel >> name: anObject [
 	name := anObject
+]
+
+{ #category : #accessing }
+MethodModel >> protocol [
+	^ protocol
+]
+
+{ #category : #accessing }
+MethodModel >> protocol: anObject [
+	protocol := anObject
 ]
 
 { #category : #accessing }

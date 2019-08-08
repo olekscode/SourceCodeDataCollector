@@ -6,15 +6,10 @@ Class {
 
 { #category : #'as yet unclassified' }
 DataCollector >> collectClassDataFrom: aClass [
-	| model |
-	model := ClassModel new.
-	model name: aClass name.
-	
-	model methods: (
-		aClass methods collect: [ :method |
+	^ ClassModel new
+		name: aClass name;
+		methods: (aClass methods collect: [ :method |
 			self collectMethodDataFrom: method ]) asArray.
-		
-	^ model
 ]
 
 { #category : #'as yet unclassified' }
@@ -28,25 +23,19 @@ DataCollector >> collectDataFromProject: aProjectModel [
 
 { #category : #'as yet unclassified' }
 DataCollector >> collectMethodDataFrom: aMethod [
-	| model |
-	model := MethodModel new.
-	model name: aMethod selector.
-	model sourceCode: aMethod sourceCode.
-	model linesOfCode: aMethod linesOfCode.
-	^ model
+	^ MethodModel new
+		name: aMethod selector;
+		protocol: aMethod protocol;
+		sourceCode: aMethod sourceCode;
+		linesOfCode: aMethod linesOfCode.
 ]
 
 { #category : #'as yet unclassified' }
 DataCollector >> collectPackageDataFrom: aPackage [
-	| model |
-	model := PackageModel new.
-	model name: aPackage name.
-	
-	model classes: (
-		aPackage classes collect: [ :aClass |
+	^ PackageModel new
+		name: aPackage name;
+		classes: (aPackage classes collect: [ :aClass |
 			self collectClassDataFrom: aClass ]) asArray.
-		
-	^ model
 ]
 
 { #category : #'as yet unclassified' }
