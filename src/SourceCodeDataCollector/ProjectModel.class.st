@@ -5,7 +5,7 @@ Class {
 		'packages',
 		'url',
 		'commit',
-		'prefix',
+		'prefixes',
 		'name'
 	],
 	#category : #SourceCodeDataCollector
@@ -42,13 +42,13 @@ ProjectModel >> packages: anObject [
 ]
 
 { #category : #accessing }
-ProjectModel >> prefix [
-	^ prefix
+ProjectModel >> prefixes [
+	^ prefixes
 ]
 
 { #category : #accessing }
-ProjectModel >> prefix: anObject [
-	prefix := anObject
+ProjectModel >> prefixes: anObject [
+	prefixes := anObject
 ]
 
 { #category : #accessing }

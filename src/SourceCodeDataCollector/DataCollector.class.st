@@ -40,6 +40,7 @@ DataCollector >> collectPackageDataFrom: aPackage [
 
 { #category : #'as yet unclassified' }
 DataCollector >> packagesOfProject: aProjectModel [	
-	^ Smalltalk image packages
-		select: [ :p | p name beginsWith: aProjectModel prefix ].
+	^ aProjectModel prefixes flatCollect: [ :prefix |
+		Smalltalk image packages
+			select: [ :p | p name beginsWith: prefix ] ].
 ]
