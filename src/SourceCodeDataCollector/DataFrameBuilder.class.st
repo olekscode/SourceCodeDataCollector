@@ -11,7 +11,7 @@ DataFrameBuilder >> columnNamesForCollectionOfProjects [
 
 { #category : #'instance creation' }
 DataFrameBuilder >> columnNamesForOneProject [ 
-	^ #(package class protocol method linesOfCode)
+	^ #(package class protocol method linesOfCode tokens subtokens)
 ]
 
 { #category : #'instance creation' }
@@ -55,7 +55,9 @@ DataFrameBuilder >> rowFromPackage: aPackageModel class: aClassModel method: aMe
 		aClassModel name .
 		aMethodModel protocol .
 		aMethodModel name .
-		aMethodModel linesOfCode
+		aMethodModel linesOfCode .
+		' ' join: aMethodModel tokens .
+		' ' join: aMethodModel subtokens
 	}
 ]
 

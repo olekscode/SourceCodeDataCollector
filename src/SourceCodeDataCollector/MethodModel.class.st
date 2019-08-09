@@ -5,7 +5,9 @@ Class {
 		'name',
 		'protocol',
 		'sourceCode',
-		'linesOfCode'
+		'linesOfCode',
+		'tokens',
+		'subtokens'
 	],
 	#category : #'SourceCodeDataCollector-Models'
 }
@@ -48,4 +50,24 @@ MethodModel >> sourceCode [
 { #category : #accessing }
 MethodModel >> sourceCode: anObject [
 	sourceCode := anObject
+]
+
+{ #category : #accessing }
+MethodModel >> subtokens [
+	^ subtokens
+]
+
+{ #category : #accessing }
+MethodModel >> subtokens: anObject [
+	subtokens := anObject
+]
+
+{ #category : #accessing }
+MethodModel >> tokens [
+	^ tokens
+]
+
+{ #category : #accessing }
+MethodModel >> tokens: anObject [
+	tokens := anObject
 ]
