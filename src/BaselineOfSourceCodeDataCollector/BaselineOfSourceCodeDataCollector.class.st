@@ -12,6 +12,10 @@ BaselineOfSourceCodeDataCollector >> baselineOf: spec [
 		spec
 			baseline: 'DataFrame'
 			with: [ spec repository: 'github://PolyMathOrg/DataFrame/src' ].
+			
+		spec 
+			baseline: 'CodeTokenizer'
+			with: [ spec repository: 'github://olekscode/CodeTokenizer/src' ].
 				
 		"Packages"
 		spec 
