@@ -13,6 +13,20 @@ DataCollector >> collectClassDataFrom: aClass [
 ]
 
 { #category : #'as yet unclassified' }
+DataCollector >> collectDataFromCollectionOfProjects: aCollectionOfProjectModels [
+	^ aCollectionOfProjectModels collect: [ :projectModel |
+		self collectDataFromProject: projectModel ].
+]
+
+{ #category : #'as yet unclassified' }
+DataCollector >> collectDataFromCollectionOfProjects: aCollectionOfProjectModels andWriteToCsv: aFileReference [
+	| df |
+	self collectDataFromCollectionOfProjects: aCollectionOfProjectModels.
+	df := DataFrameBuilder new fromCollectionOfProjects: aCollectionOfProjectModels.
+	df writeToCsv: aFileReference
+]
+
+{ #category : #'as yet unclassified' }
 DataCollector >> collectDataFromProject: aProjectModel [
 	aProjectModel packages: (
 		(self packagesOfProject: aProjectModel) collect: [ :package |
