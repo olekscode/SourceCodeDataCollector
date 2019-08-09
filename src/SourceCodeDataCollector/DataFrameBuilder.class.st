@@ -1,7 +1,7 @@
 Class {
 	#name : #DataFrameBuilder,
 	#superclass : #Object,
-	#category : #SourceCodeDataCollector
+	#category : #'SourceCodeDataCollector-Controllers'
 }
 
 { #category : #'instance creation' }

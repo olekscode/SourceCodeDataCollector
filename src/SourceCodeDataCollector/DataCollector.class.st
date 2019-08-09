@@ -1,7 +1,7 @@
 Class {
 	#name : #DataCollector,
 	#superclass : #Object,
-	#category : #SourceCodeDataCollector
+	#category : #'SourceCodeDataCollector-Controllers'
 }
 
 { #category : #'as yet unclassified' }
@@ -19,6 +19,14 @@ DataCollector >> collectDataFromProject: aProjectModel [
 			self collectPackageDataFrom: package ]) asArray.
 	
 	^ aProjectModel
+]
+
+{ #category : #'as yet unclassified' }
+DataCollector >> collectDataFromProject: aProjectModel andWriteToCsv: aFileReference [
+	| df |
+	self collectDataFromProject: aProjectModel.
+	df := DataFrameBuilder new fromProject: aProjectModel.
+	df writeToCsv: aFileReference
 ]
 
 { #category : #'as yet unclassified' }

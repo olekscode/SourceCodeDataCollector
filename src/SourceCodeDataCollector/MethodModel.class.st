@@ -7,7 +7,7 @@ Class {
 		'sourceCode',
 		'linesOfCode'
 	],
-	#category : #SourceCodeDataCollector
+	#category : #'SourceCodeDataCollector-Models'
 }
 
 { #category : #accessing }

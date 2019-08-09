@@ -8,7 +8,7 @@ Class {
 		'prefixes',
 		'name'
 	],
-	#category : #SourceCodeDataCollector
+	#category : #'SourceCodeDataCollector-Models'
 }
 
 { #category : #accessing }

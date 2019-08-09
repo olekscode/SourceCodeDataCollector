@@ -5,7 +5,7 @@ Class {
 		'classes',
 		'name'
 	],
-	#category : #SourceCodeDataCollector
+	#category : #'SourceCodeDataCollector-Models'
 }
 
 { #category : #accessing }
