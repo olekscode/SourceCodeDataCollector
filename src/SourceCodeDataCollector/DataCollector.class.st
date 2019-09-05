@@ -22,28 +22,6 @@ DataCollector >> collectClassDataFrom: aClass [
 ]
 
 { #category : #'as yet unclassified' }
-DataCollector >> collectDataFromCollectionOfProjects: aCollectionOfProjectModels [
-	| count |
-	count := 1.
-	
-	aCollectionOfProjectModels
-		do: [ :projectModel |
-			self collectDataFromProject: projectModel.
-			count := count + 1 ]
-		displayingProgress: [ :projectModel | '(', count asString, '/', aCollectionOfProjectModels size asString, ' projects) ', projectModel name ].
-	
-	^ aCollectionOfProjectModels.
-]
-
-{ #category : #'as yet unclassified' }
-DataCollector >> collectDataFromCollectionOfProjects: aCollectionOfProjectModels andWriteToCsv: aFileReference [
-	| df |
-	self collectDataFromCollectionOfProjects: aCollectionOfProjectModels.
-	df := DataFrameBuilder new fromCollectionOfProjects: aCollectionOfProjectModels.
-	df writeToCsv: aFileReference
-]
-
-{ #category : #'as yet unclassified' }
 DataCollector >> collectDataFromProject: aProjectModel [
 	| packages packageModels count |
 	packageModels := OrderedCollection new.
@@ -67,6 +45,28 @@ DataCollector >> collectDataFromProject: aProjectModel andWriteToCsv: aFileRefer
 	| df |
 	self collectDataFromProject: aProjectModel.
 	df := DataFrameBuilder new fromProject: aProjectModel.
+	df writeToCsv: aFileReference
+]
+
+{ #category : #'as yet unclassified' }
+DataCollector >> collectDataFromProjects: aCollectionOfProjectModels [
+	| count |
+	count := 1.
+	
+	aCollectionOfProjectModels
+		do: [ :projectModel |
+			self collectDataFromProject: projectModel.
+			count := count + 1 ]
+		displayingProgress: [ :projectModel | '(', count asString, '/', aCollectionOfProjectModels size asString, ' projects) ', projectModel name ].
+	
+	^ aCollectionOfProjectModels.
+]
+
+{ #category : #'as yet unclassified' }
+DataCollector >> collectDataFromProjects: aCollectionOfProjectModels andWriteToCsv: aFileReference [
+	| df |
+	self collectDataFromProjects: aCollectionOfProjectModels.
+	df := DataFrameBuilder new fromCollectionOfProjects: aCollectionOfProjectModels.
 	df writeToCsv: aFileReference
 ]
 
