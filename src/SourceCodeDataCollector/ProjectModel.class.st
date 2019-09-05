@@ -3,23 +3,11 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'packages',
-		'url',
-		'commit',
 		'prefixes',
 		'name'
 	],
 	#category : #'SourceCodeDataCollector-Models'
 }
-
-{ #category : #accessing }
-ProjectModel >> commit [
-	^ commit
-]
-
-{ #category : #accessing }
-ProjectModel >> commit: anObject [
-	commit := anObject
-]
 
 { #category : #accessing }
 ProjectModel >> name [
@@ -49,14 +37,4 @@ ProjectModel >> prefixes [
 { #category : #accessing }
 ProjectModel >> prefixes: anObject [
 	prefixes := anObject
-]
-
-{ #category : #accessing }
-ProjectModel >> url [
-	^ url
-]
-
-{ #category : #accessing }
-ProjectModel >> url: anObject [
-	url := anObject
 ]

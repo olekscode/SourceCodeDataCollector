@@ -5,31 +5,13 @@ Class {
 }
 
 { #category : #'instance creation' }
-DataFrameBuilder >> columnNamesForCollectionOfProjects [
-	^ #(project), self columnNamesForOneProject
-]
-
-{ #category : #'instance creation' }
 DataFrameBuilder >> columnNamesForOneProject [ 
 	^ #(package class protocol method linesOfCode tokens subtokens)
 ]
 
 { #category : #'instance creation' }
-DataFrameBuilder >> fromCollectionOfProjects: aCollectionOfProjectModels [
-	| rows |
-	rows := aCollectionOfProjectModels flatCollect: [ :projectModel |
-		projectModel packages flatCollect: [ :packageModel |
-			packageModel classes flatCollect: [ :classModel |
-				classModel methods collect: [ :methodModel |
-					self
-						rowFromProject: projectModel
-						package: packageModel
-						class: classModel
-						method: methodModel ] ] ] ].
-	
-	^ DataFrame
-		withRows: rows
-		columnNames: self columnNamesForCollectionOfProjects.
+DataFrameBuilder >> columnNamesForProjects [
+	^ #(project), self columnNamesForOneProject
 ]
 
 { #category : #'instance creation' }
@@ -46,6 +28,24 @@ DataFrameBuilder >> fromProject: aProjectModel [
 	^ DataFrame
 		withRows: rows
 		columnNames: self columnNamesForOneProject.
+]
+
+{ #category : #'instance creation' }
+DataFrameBuilder >> fromProjects: aCollectionOfProjectModels [
+	| rows |
+	rows := aCollectionOfProjectModels flatCollect: [ :projectModel |
+		projectModel packages flatCollect: [ :packageModel |
+			packageModel classes flatCollect: [ :classModel |
+				classModel methods collect: [ :methodModel |
+					self
+						rowFromProject: projectModel
+						package: packageModel
+						class: classModel
+						method: methodModel ] ] ] ].
+	
+	^ DataFrame
+		withRows: rows
+		columnNames: self columnNamesForProjects.
 ]
 
 { #category : #'instance creation' }

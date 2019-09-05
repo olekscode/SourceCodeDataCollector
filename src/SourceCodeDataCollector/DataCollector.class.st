@@ -66,7 +66,7 @@ DataCollector >> collectDataFromProjects: aCollectionOfProjectModels [
 DataCollector >> collectDataFromProjects: aCollectionOfProjectModels andWriteToCsv: aFileReference [
 	| df |
 	self collectDataFromProjects: aCollectionOfProjectModels.
-	df := DataFrameBuilder new fromCollectionOfProjects: aCollectionOfProjectModels.
+	df := DataFrameBuilder new fromProjects: aCollectionOfProjectModels.
 	df writeToCsv: aFileReference
 ]
 
