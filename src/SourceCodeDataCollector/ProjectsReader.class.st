@@ -14,6 +14,7 @@ ProjectsReader class >> readExternalProjectsFrom: aFileReference [
 			name: (projectRow at: 'name');
 			prefixes: (projectRow at: 'prefixes') substrings;
 			repositoryOwner: (projectRow at: 'repositoryOwner');
+			repositoryName: (projectRow at: 'repositoryName');
 			commit: (projectRow at: 'commit');
 			codeDirectory: ((projectRow at: 'codeDirectory') ifNil: '');
 			yourself ].

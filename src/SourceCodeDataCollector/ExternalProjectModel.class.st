@@ -3,6 +3,7 @@ Class {
 	#superclass : #ProjectModel,
 	#instVars : [
 		'repositoryOwner',
+		'repositoryName',
 		'commit',
 		'codeDirectory'
 	],
@@ -33,11 +34,21 @@ ExternalProjectModel >> commit: anObject [
 ExternalProjectModel >> metacello [
 	^ Metacello new
 		baseline: self name;
-		repository: ('github://', self repositoryOwner, '/', self name, ':', self commit, '/', self codeDirectory);
+		repository: ('github://', self repositoryOwner, '/', self repositoryName, ':', self commit, '/', self codeDirectory);
 		onConflict: [ :ex | ex useIncoming ];
 		onUpgrade: [ :ex | ex useIncoming ];
 		onDowngrade: [ :ex | ex useIncoming ];
 		onWarning: [ :ex | Transcript crShow: ex ].
+]
+
+{ #category : #accessing }
+ExternalProjectModel >> repositoryName [
+	^ repositoryName
+]
+
+{ #category : #accessing }
+ExternalProjectModel >> repositoryName: anObject [
+	repositoryName := anObject
 ]
 
 { #category : #accessing }
