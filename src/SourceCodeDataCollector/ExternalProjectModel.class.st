@@ -32,9 +32,12 @@ ExternalProjectModel >> commit: anObject [
 { #category : #'as yet unclassified' }
 ExternalProjectModel >> metacello [
 	^ Metacello new
-		repository: ('github://', self repositoryOwner, '/', self name, ':', self commit, '/', self codeDirectory);
 		baseline: self name;
-		onConflict: [ :ex | ex useIncoming ].
+		repository: ('github://', self repositoryOwner, '/', self name, ':', self commit, '/', self codeDirectory);
+		onConflict: [ :ex | ex useIncoming ];
+		onUpgrade: [ :ex | ex useIncoming ];
+		onDowngrade: [ :ex | ex useIncoming ];
+		onWarning: [ :ex | Transcript crShow: ex ].
 ]
 
 { #category : #accessing }
