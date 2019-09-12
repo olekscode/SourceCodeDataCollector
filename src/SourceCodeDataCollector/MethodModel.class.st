@@ -2,15 +2,39 @@ Class {
 	#name : #MethodModel,
 	#superclass : #Object,
 	#instVars : [
+		'id',
 		'name',
 		'protocol',
 		'sourceCode',
 		'linesOfCode',
 		'tokens',
-		'subtokens'
+		'tokenTypes',
+		'subtokens',
+		'words',
+		'allWords'
 	],
 	#category : #'SourceCodeDataCollector-Models'
 }
+
+{ #category : #accessing }
+MethodModel >> allWords [
+	^ allWords
+]
+
+{ #category : #accessing }
+MethodModel >> allWords: anObject [
+	allWords := anObject
+]
+
+{ #category : #accessing }
+MethodModel >> id [
+	^ id
+]
+
+{ #category : #accessing }
+MethodModel >> id: anObject [
+	id := anObject
+]
 
 { #category : #accessing }
 MethodModel >> linesOfCode [
@@ -63,6 +87,16 @@ MethodModel >> subtokens: anObject [
 ]
 
 { #category : #accessing }
+MethodModel >> tokenTypes [
+	^ tokenTypes
+]
+
+{ #category : #accessing }
+MethodModel >> tokenTypes: anObject [
+	tokenTypes := anObject
+]
+
+{ #category : #accessing }
 MethodModel >> tokens [
 	^ tokens
 ]
@@ -70,4 +104,14 @@ MethodModel >> tokens [
 { #category : #accessing }
 MethodModel >> tokens: anObject [
 	tokens := anObject
+]
+
+{ #category : #accessing }
+MethodModel >> words [
+	^ words
+]
+
+{ #category : #accessing }
+MethodModel >> words: anObject [
+	words := anObject
 ]

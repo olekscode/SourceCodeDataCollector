@@ -5,63 +5,138 @@ Class {
 }
 
 { #category : #'instance creation' }
-DataFrameBuilder >> columnNamesForOneProject [ 
-	^ #(package class protocol method linesOfCode tokens subtokens)
+DataFrameBuilder >> allWordsTableColumnNames [
+	^ #(id words)
 ]
 
 { #category : #'instance creation' }
-DataFrameBuilder >> columnNamesForProjects [
-	^ #(project), self columnNamesForOneProject
-]
-
-{ #category : #'instance creation' }
-DataFrameBuilder >> fromProject: aProjectModel [
+DataFrameBuilder >> allWordsTableFromProjects: projectModels [
 	| rows |
-	rows := aProjectModel packages flatCollect: [ :packageModel |
-		packageModel classes flatCollect: [ :classModel |
-			classModel methods collect: [ :methodModel |
-				self
-					rowFromPackage: packageModel
-					class: classModel
-					method: methodModel ] ] ].
-	
-	^ DataFrame
-		withRows: rows
-		columnNames: self columnNamesForOneProject.
-]
-
-{ #category : #'instance creation' }
-DataFrameBuilder >> fromProjects: aCollectionOfProjectModels [
-	| rows |
-	rows := aCollectionOfProjectModels flatCollect: [ :projectModel |
+	rows := projectModels flatCollect: [ :projectModel |
 		projectModel packages flatCollect: [ :packageModel |
 			packageModel classes flatCollect: [ :classModel |
 				classModel methods collect: [ :methodModel |
-					self
-						rowFromProject: projectModel
-						package: packageModel
-						class: classModel
-						method: methodModel ] ] ] ].
+					{
+						methodModel id .
+						' ' join: methodModel allWords
+					} ] ] ] ].
 	
 	^ DataFrame
 		withRows: rows
-		columnNames: self columnNamesForProjects.
+		columnNames: self allWordsTableColumnNames.
 ]
 
 { #category : #'instance creation' }
-DataFrameBuilder >> rowFromPackage: aPackageModel class: aClassModel method: aMethodModel [
-	^ {
-		aPackageModel name .
-		aClassModel name .
-		aMethodModel protocol .
-		aMethodModel name .
-		aMethodModel linesOfCode .
-		' ' join: aMethodModel tokens .
-		' ' join: aMethodModel subtokens
-	}
+DataFrameBuilder >> methodsTableColumnNames [
+	^ #(id project package class protocol selector linesOfCode)
 ]
 
 { #category : #'instance creation' }
-DataFrameBuilder >> rowFromProject: aProjectModel package: aPackageModel class: aClassModel method: aMethodModel [
-	^ { aProjectModel name }, (self rowFromPackage: aPackageModel class: aClassModel method: aMethodModel)
+DataFrameBuilder >> methodsTableFromProjects: projectModels [
+	| rows |
+	rows := projectModels flatCollect: [ :projectModel |
+		projectModel packages flatCollect: [ :packageModel |
+			packageModel classes flatCollect: [ :classModel |
+				classModel methods collect: [ :methodModel |
+					{
+						methodModel id .
+						projectModel name .
+						packageModel name .
+						classModel name .
+						methodModel protocol .
+						methodModel name .
+						methodModel linesOfCode
+					} ] ] ] ].
+	
+	^ DataFrame
+		withRows: rows
+		columnNames: self methodsTableColumnNames.
+]
+
+{ #category : #'instance creation' }
+DataFrameBuilder >> sourcesTableColumnNames [
+	^ #(id sourceCode)
+]
+
+{ #category : #'instance creation' }
+DataFrameBuilder >> sourcesTableFromProjects: projectModels [
+	| rows |
+	rows := projectModels flatCollect: [ :projectModel |
+		projectModel packages flatCollect: [ :packageModel |
+			packageModel classes flatCollect: [ :classModel |
+				classModel methods collect: [ :methodModel |
+					{
+						methodModel id .
+						' ' join: methodModel sourceCode substrings
+					} ] ] ] ].
+	
+	^ DataFrame
+		withRows: rows
+		columnNames: self sourcesTableColumnNames.
+]
+
+{ #category : #'instance creation' }
+DataFrameBuilder >> subtokensTableColumnNames [
+	^ #(id subtokens)
+]
+
+{ #category : #'instance creation' }
+DataFrameBuilder >> subtokensTableFromProjects: projectModels [
+	| rows |
+	rows := projectModels flatCollect: [ :projectModel |
+		projectModel packages flatCollect: [ :packageModel |
+			packageModel classes flatCollect: [ :classModel |
+				classModel methods collect: [ :methodModel |
+					{
+						methodModel id .
+						' ' join: methodModel subtokens
+					} ] ] ] ].
+	
+	^ DataFrame
+		withRows: rows
+		columnNames: self subtokensTableColumnNames.
+]
+
+{ #category : #'instance creation' }
+DataFrameBuilder >> tokensTableColumnNames [
+	^ #(id tokens)
+]
+
+{ #category : #'instance creation' }
+DataFrameBuilder >> tokensTableFromProjects: projectModels [
+	| rows |
+	rows := projectModels flatCollect: [ :projectModel |
+		projectModel packages flatCollect: [ :packageModel |
+			packageModel classes flatCollect: [ :classModel |
+				classModel methods collect: [ :methodModel |
+					{
+						methodModel id .
+						' ' join: methodModel tokens
+					} ] ] ] ].
+	
+	^ DataFrame
+		withRows: rows
+		columnNames: self tokensTableColumnNames.
+]
+
+{ #category : #'instance creation' }
+DataFrameBuilder >> wordsTableColumnNames [
+	^ #(id words)
+]
+
+{ #category : #'instance creation' }
+DataFrameBuilder >> wordsTableFromProjects: projectModels [
+	| rows |
+	rows := projectModels flatCollect: [ :projectModel |
+		projectModel packages flatCollect: [ :packageModel |
+			packageModel classes flatCollect: [ :classModel |
+				classModel methods collect: [ :methodModel |
+					{
+						methodModel id .
+						' ' join: methodModel words
+					} ] ] ] ].
+	
+	^ DataFrame
+		withRows: rows
+		columnNames: self wordsTableColumnNames.
 ]

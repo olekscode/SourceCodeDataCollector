@@ -1,6 +1,9 @@
 Class {
 	#name : #DataCollector,
 	#superclass : #Object,
+	#instVars : [
+		'methodId'
+	],
 	#category : #'SourceCodeDataCollector-Controllers'
 }
 
@@ -41,14 +44,6 @@ DataCollector >> collectDataFromProject: aProjectModel [
 ]
 
 { #category : #'as yet unclassified' }
-DataCollector >> collectDataFromProject: aProjectModel andWriteToCsv: aFileReference [
-	| df |
-	self collectDataFromProject: aProjectModel.
-	df := DataFrameBuilder new fromProject: aProjectModel.
-	df writeToCsv: aFileReference
-]
-
-{ #category : #'as yet unclassified' }
 DataCollector >> collectDataFromProjects: aCollectionOfProjectModels [
 	| count |
 	count := 1.
@@ -63,21 +58,22 @@ DataCollector >> collectDataFromProjects: aCollectionOfProjectModels [
 ]
 
 { #category : #'as yet unclassified' }
-DataCollector >> collectDataFromProjects: aCollectionOfProjectModels andWriteToCsv: aFileReference [
-	| df |
-	self collectDataFromProjects: aCollectionOfProjectModels.
-	df := DataFrameBuilder new fromProjects: aCollectionOfProjectModels.
-	df writeToCsv: aFileReference
-]
-
-{ #category : #'as yet unclassified' }
 DataCollector >> collectMethodDataFrom: aMethod [
-
-	^ MethodModel new
+	| method |
+	method := MethodModel new
+		id: self methodId;
 		name: aMethod selector;
 		protocol: aMethod protocol;
 		sourceCode: aMethod sourceCode;
-		linesOfCode: aMethod linesOfCode.
+		linesOfCode: aMethod linesOfCode;
+		tokens: aMethod tokens;
+		tokenTypes: aMethod tokenTypes;
+		subtokens: aMethod subtokens;
+		words: aMethod wordsFromIdentifierNames;
+		allWords: aMethod wordsFromSourceCode.
+		
+	self updateMethodId.
+	^ method
 ]
 
 { #category : #'as yet unclassified' }
@@ -97,9 +93,35 @@ DataCollector >> collectPackageDataFrom: aPackage [
 		classes: classes asArray.
 ]
 
+{ #category : #accessing }
+DataCollector >> initialMethodId [
+	^ 1
+]
+
+{ #category : #initialization }
+DataCollector >> initialize [ 
+	super initialize.
+	self methodId: self initialMethodId.
+]
+
+{ #category : #accessing }
+DataCollector >> methodId [
+	^ methodId
+]
+
+{ #category : #accessing }
+DataCollector >> methodId: anObject [
+	methodId := anObject
+]
+
 { #category : #'as yet unclassified' }
 DataCollector >> packagesOfProject: aProjectModel [	
 	^ aProjectModel prefixes flatCollect: [ :prefix |
 		Smalltalk image packages
 			select: [ :p | p name beginsWith: prefix ] ].
+]
+
+{ #category : #accessing }
+DataCollector >> updateMethodId [
+	self methodId: (self methodId + 1)
 ]
