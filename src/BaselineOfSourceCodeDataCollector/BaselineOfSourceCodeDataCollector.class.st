@@ -14,11 +14,11 @@ BaselineOfSourceCodeDataCollector >> baselineOf: spec [
 			with: [ spec repository: 'github://PolyMathOrg/DataFrame/src' ].
 			
 		spec 
-			baseline: 'CodeTokenizer'
-			with: [ spec repository: 'github://olekscode/CodeTokenizer/src' ].
+			baseline: 'PharoCodeTokenizer'
+			with: [ spec repository: 'github://olekscode/PharoCodeTokenizer/src' ].
 				
 		"Packages"
 		spec 
-			package: 'SourceCodeDataCollector';
-			package: 'SourceCodeDataCollector-Tests' with: [ spec requires: #('SourceCodeDataCollector') ]].
+			package: 'SourceCodeDataCollector' with: [ spec requires: #(DataFrame PharoCodeTokenizer) ];
+			package: 'SourceCodeDataCollector-Tests' with: [ spec requires: #(SourceCodeDataCollector) ]].
 ]

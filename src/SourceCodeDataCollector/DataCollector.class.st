@@ -72,16 +72,12 @@ DataCollector >> collectDataFromProjects: aCollectionOfProjectModels andWriteToC
 
 { #category : #'as yet unclassified' }
 DataCollector >> collectMethodDataFrom: aMethod [
-	| tokenizer |
-	tokenizer := PharoCodeTokenizer new.
 
 	^ MethodModel new
 		name: aMethod selector;
 		protocol: aMethod protocol;
 		sourceCode: aMethod sourceCode;
-		linesOfCode: aMethod linesOfCode;
-		tokens: (tokenizer tokenize: aMethod);
-		subtokens: (tokenizer tokenizeWithIdentifierNames: aMethod).
+		linesOfCode: aMethod linesOfCode.
 ]
 
 { #category : #'as yet unclassified' }
