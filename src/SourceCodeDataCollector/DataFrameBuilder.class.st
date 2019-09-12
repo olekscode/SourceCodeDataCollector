@@ -10,7 +10,7 @@ DataFrameBuilder >> allWordsTableColumnNames [
 ]
 
 { #category : #'instance creation' }
-DataFrameBuilder >> allWordsTableFromProjects: projectModels [
+DataFrameBuilder >> allWordsTableFrom: projectModels [
 	| rows |
 	rows := projectModels flatCollect: [ :projectModel |
 		projectModel packages flatCollect: [ :packageModel |
@@ -32,7 +32,7 @@ DataFrameBuilder >> methodsTableColumnNames [
 ]
 
 { #category : #'instance creation' }
-DataFrameBuilder >> methodsTableFromProjects: projectModels [
+DataFrameBuilder >> methodsTableFrom: projectModels [
 	| rows |
 	rows := projectModels flatCollect: [ :projectModel |
 		projectModel packages flatCollect: [ :packageModel |
@@ -59,7 +59,7 @@ DataFrameBuilder >> sourcesTableColumnNames [
 ]
 
 { #category : #'instance creation' }
-DataFrameBuilder >> sourcesTableFromProjects: projectModels [
+DataFrameBuilder >> sourcesTableFrom: projectModels [
 	| rows |
 	rows := projectModels flatCollect: [ :projectModel |
 		projectModel packages flatCollect: [ :packageModel |
@@ -81,7 +81,7 @@ DataFrameBuilder >> subtokensTableColumnNames [
 ]
 
 { #category : #'instance creation' }
-DataFrameBuilder >> subtokensTableFromProjects: projectModels [
+DataFrameBuilder >> subtokensTableFrom: projectModels [
 	| rows |
 	rows := projectModels flatCollect: [ :projectModel |
 		projectModel packages flatCollect: [ :packageModel |
@@ -99,11 +99,11 @@ DataFrameBuilder >> subtokensTableFromProjects: projectModels [
 
 { #category : #'instance creation' }
 DataFrameBuilder >> tokensTableColumnNames [
-	^ #(id tokens)
+	^ #(id tokens tokenTypes)
 ]
 
 { #category : #'instance creation' }
-DataFrameBuilder >> tokensTableFromProjects: projectModels [
+DataFrameBuilder >> tokensTableFrom: projectModels [
 	| rows |
 	rows := projectModels flatCollect: [ :projectModel |
 		projectModel packages flatCollect: [ :packageModel |
@@ -111,7 +111,8 @@ DataFrameBuilder >> tokensTableFromProjects: projectModels [
 				classModel methods collect: [ :methodModel |
 					{
 						methodModel id .
-						' ' join: methodModel tokens
+						' ' join: methodModel tokens .
+						' ' join: methodModel tokenTypes
 					} ] ] ] ].
 	
 	^ DataFrame
@@ -125,7 +126,7 @@ DataFrameBuilder >> wordsTableColumnNames [
 ]
 
 { #category : #'instance creation' }
-DataFrameBuilder >> wordsTableFromProjects: projectModels [
+DataFrameBuilder >> wordsTableFrom: projectModels [
 	| rows |
 	rows := projectModels flatCollect: [ :projectModel |
 		projectModel packages flatCollect: [ :packageModel |
