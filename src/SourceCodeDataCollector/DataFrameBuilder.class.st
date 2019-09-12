@@ -14,12 +14,11 @@ DataFrameBuilder >> allWordsTableFrom: projectModels [
 	| rows |
 	rows := projectModels flatCollect: [ :projectModel |
 		projectModel packages flatCollect: [ :packageModel |
-			packageModel classes flatCollect: [ :classModel |
-				classModel methods collect: [ :methodModel |
-					{
-						methodModel id .
-						' ' join: methodModel allWords
-					} ] ] ] ].
+			packageModel methods collect: [ :methodModel |
+				{
+					methodModel id .
+					' ' join: methodModel allWords
+				} ] ] ].
 	
 	^ DataFrame
 		withRows: rows
@@ -36,17 +35,16 @@ DataFrameBuilder >> methodsTableFrom: projectModels [
 	| rows |
 	rows := projectModels flatCollect: [ :projectModel |
 		projectModel packages flatCollect: [ :packageModel |
-			packageModel classes flatCollect: [ :classModel |
-				classModel methods collect: [ :methodModel |
-					{
-						methodModel id .
-						projectModel name .
-						packageModel name .
-						classModel name .
-						methodModel protocol .
-						methodModel name .
-						methodModel linesOfCode
-					} ] ] ] ].
+			packageModel methods collect: [ :methodModel |
+				{
+					methodModel id .
+					projectModel name .
+					packageModel name .
+					methodModel methodClass name .
+					methodModel protocol .
+					methodModel name .
+					methodModel linesOfCode
+				} ] ] ] .
 	
 	^ DataFrame
 		withRows: rows
@@ -63,12 +61,11 @@ DataFrameBuilder >> sourcesTableFrom: projectModels [
 	| rows |
 	rows := projectModels flatCollect: [ :projectModel |
 		projectModel packages flatCollect: [ :packageModel |
-			packageModel classes flatCollect: [ :classModel |
-				classModel methods collect: [ :methodModel |
-					{
-						methodModel id .
-						' ' join: methodModel sourceCode substrings
-					} ] ] ] ].
+			packageModel methods collect: [ :methodModel |
+				{
+					methodModel id .
+					' ' join: methodModel sourceCode substrings
+				} ] ] ].
 	
 	^ DataFrame
 		withRows: rows
@@ -85,12 +82,11 @@ DataFrameBuilder >> subtokensTableFrom: projectModels [
 	| rows |
 	rows := projectModels flatCollect: [ :projectModel |
 		projectModel packages flatCollect: [ :packageModel |
-			packageModel classes flatCollect: [ :classModel |
-				classModel methods collect: [ :methodModel |
-					{
-						methodModel id .
-						' ' join: methodModel subtokens
-					} ] ] ] ].
+			packageModel methods collect: [ :methodModel |
+				{
+					methodModel id .
+					' ' join: methodModel subtokens
+				} ] ] ].
 	
 	^ DataFrame
 		withRows: rows
@@ -107,13 +103,12 @@ DataFrameBuilder >> tokensTableFrom: projectModels [
 	| rows |
 	rows := projectModels flatCollect: [ :projectModel |
 		projectModel packages flatCollect: [ :packageModel |
-			packageModel classes flatCollect: [ :classModel |
-				classModel methods collect: [ :methodModel |
-					{
-						methodModel id .
-						' ' join: methodModel tokens .
-						' ' join: methodModel tokenTypes
-					} ] ] ] ].
+			packageModel methods collect: [ :methodModel |
+				{
+					methodModel id .
+					' ' join: methodModel tokens .
+					' ' join: methodModel tokenTypes
+				} ] ] ].
 	
 	^ DataFrame
 		withRows: rows
@@ -130,12 +125,11 @@ DataFrameBuilder >> wordsTableFrom: projectModels [
 	| rows |
 	rows := projectModels flatCollect: [ :projectModel |
 		projectModel packages flatCollect: [ :packageModel |
-			packageModel classes flatCollect: [ :classModel |
-				classModel methods collect: [ :methodModel |
-					{
-						methodModel id .
-						' ' join: methodModel words
-					} ] ] ] ].
+			packageModel methods collect: [ :methodModel |
+				{
+					methodModel id .
+					' ' join: methodModel words
+				} ] ] ].
 	
 	^ DataFrame
 		withRows: rows

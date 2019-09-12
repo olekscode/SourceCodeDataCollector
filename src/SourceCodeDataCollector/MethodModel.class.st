@@ -4,6 +4,7 @@ Class {
 	#instVars : [
 		'id',
 		'name',
+		'methodClass',
 		'protocol',
 		'sourceCode',
 		'linesOfCode',
@@ -44,6 +45,16 @@ MethodModel >> linesOfCode [
 { #category : #accessing }
 MethodModel >> linesOfCode: anObject [
 	linesOfCode := anObject
+]
+
+{ #category : #accessing }
+MethodModel >> methodClass [
+	^ methodClass
+]
+
+{ #category : #accessing }
+MethodModel >> methodClass: anObject [
+	methodClass := anObject
 ]
 
 { #category : #accessing }

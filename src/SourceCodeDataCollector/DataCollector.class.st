@@ -8,23 +8,6 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-DataCollector >> collectClassDataFrom: aClass [
-	| methods count |
-	methods := OrderedCollection new.
-	count := 1.
-	
-	aClass methods
-		do: [ :method |
-			methods add: (self collectMethodDataFrom: method).
-			count := count + 1 ]
-		displayingProgress: [ :method | '(', count asString, '/', aClass methods size asString, ' methods) ', method selector ].
-	
-	^ ClassModel new
-		name: aClass name;
-		methods: methods asArray.
-]
-
-{ #category : #'as yet unclassified' }
 DataCollector >> collectDataFromProject: aProjectModel [
 	| packages packageModels count |
 	packageModels := OrderedCollection new.
@@ -63,6 +46,7 @@ DataCollector >> collectMethodDataFrom: aMethod [
 	method := MethodModel new
 		id: self methodId;
 		name: aMethod selector;
+		methodClass: aMethod methodClass;
 		protocol: aMethod protocol;
 		sourceCode: aMethod sourceCode;
 		linesOfCode: aMethod linesOfCode;
@@ -78,19 +62,19 @@ DataCollector >> collectMethodDataFrom: aMethod [
 
 { #category : #'as yet unclassified' }
 DataCollector >> collectPackageDataFrom: aPackage [
-	| classes counter |
-	classes := OrderedCollection new.
+	| methods counter |
+	methods := OrderedCollection new.
 	counter := 0.
 	
-	aPackage classes
-		do: [ :aClass |
-			classes add: (self collectClassDataFrom: aClass).
+	aPackage methods
+		do: [ :aMethod |
+			methods add: (self collectMethodDataFrom: aMethod).
 			counter := counter + 1 ]
-		displayingProgress: [ :aClass | '(', counter asString, '/', aPackage classes size asString, ' classes) ', aClass name ].
+		displayingProgress: [ :aMethod | '(', counter asString, '/', aPackage methods size asString, ' methods) ', aMethod selector ].
 
 	^ PackageModel new
 		name: aPackage name;
-		classes: classes asArray.
+		methods: methods asArray.
 ]
 
 { #category : #accessing }

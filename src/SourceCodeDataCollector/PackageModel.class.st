@@ -2,20 +2,20 @@ Class {
 	#name : #PackageModel,
 	#superclass : #Object,
 	#instVars : [
-		'classes',
+		'methods',
 		'name'
 	],
 	#category : #'SourceCodeDataCollector-Models'
 }
 
 { #category : #accessing }
-PackageModel >> classes [
-	^ classes
+PackageModel >> methods [
+	^ methods
 ]
 
 { #category : #accessing }
-PackageModel >> classes: anObject [
-	classes := anObject
+PackageModel >> methods: anObject [
+	methods := anObject
 ]
 
 { #category : #accessing }
