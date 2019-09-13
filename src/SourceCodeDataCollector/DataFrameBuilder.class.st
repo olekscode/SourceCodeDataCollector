@@ -35,7 +35,7 @@ DataFrameBuilder >> commentsTableFrom: projectModels [
 	| rows |
 	rows := projectModels flatCollect: [ :projectModel |
 		projectModel packages flatCollect: [ :packageModel |
-			packageModel methods collect: [ :methodModel |
+			packageModel methods flatCollect: [ :methodModel |
 				methodModel comments collect: [ :comment |
 					{
 						methodModel id .
@@ -104,7 +104,7 @@ DataFrameBuilder >> stringsTableFrom: projectModels [
 	| rows |
 	rows := projectModels flatCollect: [ :projectModel |
 		projectModel packages flatCollect: [ :packageModel |
-			packageModel methods collect: [ :methodModel |
+			packageModel methods flatCollect: [ :methodModel |
 				methodModel strings collect: [ :string |
 					{
 						methodModel id .
