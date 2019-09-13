@@ -12,7 +12,9 @@ Class {
 		'tokenTypes',
 		'subtokens',
 		'words',
-		'allWords'
+		'allWords',
+		'comments',
+		'strings'
 	],
 	#category : #'SourceCodeDataCollector-Models'
 }
@@ -25,6 +27,16 @@ MethodModel >> allWords [
 { #category : #accessing }
 MethodModel >> allWords: anObject [
 	allWords := anObject
+]
+
+{ #category : #accessing }
+MethodModel >> comments [
+	^ comments
+]
+
+{ #category : #accessing }
+MethodModel >> comments: anObject [
+	comments := anObject
 ]
 
 { #category : #accessing }
@@ -85,6 +97,16 @@ MethodModel >> sourceCode [
 { #category : #accessing }
 MethodModel >> sourceCode: anObject [
 	sourceCode := anObject
+]
+
+{ #category : #accessing }
+MethodModel >> strings [
+	^ strings
+]
+
+{ #category : #accessing }
+MethodModel >> strings: anObject [
+	strings := anObject
 ]
 
 { #category : #accessing }

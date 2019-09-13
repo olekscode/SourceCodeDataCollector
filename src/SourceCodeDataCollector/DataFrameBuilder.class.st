@@ -26,6 +26,28 @@ DataFrameBuilder >> allWordsTableFrom: projectModels [
 ]
 
 { #category : #'instance creation' }
+DataFrameBuilder >> commentsTableColumnNames [
+	^ #(id comment)
+]
+
+{ #category : #'instance creation' }
+DataFrameBuilder >> commentsTableFrom: projectModels [
+	| rows |
+	rows := projectModels flatCollect: [ :projectModel |
+		projectModel packages flatCollect: [ :packageModel |
+			packageModel methods collect: [ :methodModel |
+				methodModel comments collect: [ :comment |
+					{
+						methodModel id .
+						' ' join: comment substrings
+					} ] ] ] ].
+	
+	^ DataFrame
+		withRows: rows
+		columnNames: self commentsTableColumnNames.
+]
+
+{ #category : #'instance creation' }
 DataFrameBuilder >> methodsTableColumnNames [
 	^ #(id project package class protocol selector linesOfCode)
 ]
@@ -70,6 +92,28 @@ DataFrameBuilder >> sourcesTableFrom: projectModels [
 	^ DataFrame
 		withRows: rows
 		columnNames: self sourcesTableColumnNames.
+]
+
+{ #category : #'instance creation' }
+DataFrameBuilder >> stringsTableColumnNames [
+	^ #(id string)
+]
+
+{ #category : #'instance creation' }
+DataFrameBuilder >> stringsTableFrom: projectModels [
+	| rows |
+	rows := projectModels flatCollect: [ :projectModel |
+		projectModel packages flatCollect: [ :packageModel |
+			packageModel methods collect: [ :methodModel |
+				methodModel strings collect: [ :string |
+					{
+						methodModel id .
+						' ' join: string substrings
+					} ] ] ] ].
+	
+	^ DataFrame
+		withRows: rows
+		columnNames: self stringsTableColumnNames.
 ]
 
 { #category : #'instance creation' }
