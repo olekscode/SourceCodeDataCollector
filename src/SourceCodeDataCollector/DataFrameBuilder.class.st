@@ -39,7 +39,7 @@ DataFrameBuilder >> commentsTableFrom: projectModels [
 				methodModel comments collect: [ :comment |
 					{
 						methodModel id .
-						' ' join: comment substrings
+						((' ' join: (comment surroundedBy: '_') substrings) trimBoth: [ :char | char = $_ ])
 					} ] ] ] ].
 	
 	^ DataFrame
@@ -108,7 +108,7 @@ DataFrameBuilder >> stringsTableFrom: projectModels [
 				methodModel strings collect: [ :string |
 					{
 						methodModel id .
-						' ' join: string substrings
+						((' ' join: (string surroundedBy: '_') substrings) trimBoth: [ :char | char = $_ ])
 					} ] ] ] ].
 	
 	^ DataFrame
