@@ -11,6 +11,18 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+DataCollector class >> new [
+	self shouldNotImplement 
+]
+
+{ #category : #'as yet unclassified' }
+DataCollector class >> withWorkingDirectory: aDirectory [
+	^ super new
+		workingDirectory: aDirectory;
+		yourself.
+]
+
+{ #category : #'as yet unclassified' }
 DataCollector >> allWordsFileIn: aDirectory [
 	^ aDirectory / 'all_words.csv'
 ]
