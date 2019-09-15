@@ -22,7 +22,7 @@ MethodCollector >> collectDataFromMethod: aMethod [
 		subtokens: aMethod subtokens;
 		words: aMethod wordsFromIdentifierNames;
 		allWords: aMethod wordsFromSourceCode;
-		comments: (aMethod ast comments collect: #contents);
+		comments: aMethod comments;
 		strings: aMethod strings.
 		
 	self updateMethodId.
