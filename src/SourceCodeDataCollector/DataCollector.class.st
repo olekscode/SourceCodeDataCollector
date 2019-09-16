@@ -54,22 +54,10 @@ DataCollector >> collectMethodsFromInternalProjects [
 ]
 
 { #category : #'as yet unclassified' }
-DataCollector >> commentsFileIn: aDirectory [
-	^ aDirectory / 'comments.csv'
-]
-
-{ #category : #'as yet unclassified' }
 DataCollector >> createAndSaveAllWordsTableInto: aDirectory [
 	| table |
 	table := self tableBuilder allWordsTableFrom: self projectModels.
 	self writeTable: table toCsv: (self allWordsFileIn: aDirectory).
-]
-
-{ #category : #'as yet unclassified' }
-DataCollector >> createAndSaveCommentsTableInto: aDirectory [
-	| table |
-	table := self tableBuilder commentsTableFrom: self projectModels.
-	self writeTable: table toCsv: (self commentsFileIn: aDirectory).
 ]
 
 { #category : #'as yet unclassified' }
@@ -97,13 +85,6 @@ DataCollector >> createAndSaveSourcesTableInto: aDirectory [
 ]
 
 { #category : #'as yet unclassified' }
-DataCollector >> createAndSaveStringsTableInto: aDirectory [
-	| table |
-	table := self tableBuilder stringsTableFrom: self projectModels.
-	self writeTable: table toCsv: (self stringsFileIn: aDirectory).
-]
-
-{ #category : #'as yet unclassified' }
 DataCollector >> createAndSaveSubtokensTableInto: aDirectory [
 	| table |
 	table := self tableBuilder subtokensTableFrom: self projectModels.
@@ -118,8 +99,6 @@ DataCollector >> createAndSaveTablesInto: aDirectory [
 	self createAndSaveSubtokensTableInto: aDirectory.
 	self createAndSaveWordsTableInto: aDirectory.
 	self createAndSaveAllWordsTableInto: aDirectory.
-	self createAndSaveCommentsTableInto: aDirectory.
-	self createAndSaveStringsTableInto: aDirectory.
 ]
 
 { #category : #'as yet unclassified' }
@@ -212,11 +191,6 @@ DataCollector >> sourcesFileIn: aDirectory [
 DataCollector >> start [ 	
 	self collectDataFromInternalProjects.
 	self collectDataFromExternalProjects.
-]
-
-{ #category : #'as yet unclassified' }
-DataCollector >> stringsFileIn: aDirectory [
-	^ aDirectory / 'strings.csv'
 ]
 
 { #category : #'as yet unclassified' }
