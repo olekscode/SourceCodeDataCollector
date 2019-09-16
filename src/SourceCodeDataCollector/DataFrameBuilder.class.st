@@ -106,7 +106,7 @@ DataFrameBuilder >> tokensTableFrom: projectModels [
 			packageModel methods collect: [ :methodModel |
 				{
 					methodModel id .
-					' ' join: methodModel tokens .
+					String tab join: methodModel tokens .
 					' ' join: methodModel tokenTypes
 				} ] ] ].
 	

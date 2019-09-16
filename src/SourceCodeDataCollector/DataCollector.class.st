@@ -230,5 +230,5 @@ DataCollector >> workingDirectory: anObject [
 
 { #category : #'as yet unclassified' }
 DataCollector >> writeTable: aDataFrame toCsv: aFile [
-	aDataFrame writeToCsv: aFile withSeparator: Character tab.
+	aDataFrame writeToCsv: aFile.
 ]
