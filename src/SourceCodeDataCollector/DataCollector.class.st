@@ -28,13 +28,6 @@ DataCollector >> allWordsFileIn: aDirectory [
 ]
 
 { #category : #'as yet unclassified' }
-DataCollector >> collectData [
-	self readProjectsMetadata.
-	self collectMethods.
-	self createAndSaveTables.
-]
-
-{ #category : #'as yet unclassified' }
 DataCollector >> collectMethods [ 
 	self subclassResponsibility
 ]
@@ -147,6 +140,13 @@ DataCollector >> readProjectsMetadata [
 { #category : #'as yet unclassified' }
 DataCollector >> sourcesFileIn: aDirectory [
 	^ aDirectory / 'sources.csv'
+]
+
+{ #category : #'as yet unclassified' }
+DataCollector >> start [
+	self readProjectsMetadata.
+	self collectMethods.
+	self createAndSaveTables.
 ]
 
 { #category : #'as yet unclassified' }
