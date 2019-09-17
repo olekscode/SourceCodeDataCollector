@@ -28,106 +28,82 @@ DataCollector >> allWordsFileIn: aDirectory [
 ]
 
 { #category : #'as yet unclassified' }
-DataCollector >> collectDataFromExternalProjects [
-	self readExternalProjectsMetadata.
-	self collectMethodsFromExternalProjects.
-	self createAndSaveExternalTables.
+DataCollector >> collectData [
+	self readProjectsMetadata.
+	self collectMethods.
+	self createAndSaveTables.
 ]
 
 { #category : #'as yet unclassified' }
-DataCollector >> collectDataFromInternalProjects [
-	self readInternalProjectsMetadata.
-	self collectMethodsFromInternalProjects.
-	self createAndSaveInternalTables.
-]
-
-{ #category : #accessing }
-DataCollector >> collectMethodsFromExternalProjects [
-	self projectModels do: [ :projectModel |
-		projectModel metacello load.
-		self methodCollector collectMethodsFromProject: projectModel ].
-]
-
-{ #category : #accessing }
-DataCollector >> collectMethodsFromInternalProjects [
-	self methodCollector collectMethodsFromProjects: self projectModels.
+DataCollector >> collectMethods [ 
+	self subclassResponsibility
 ]
 
 { #category : #'as yet unclassified' }
-DataCollector >> createAndSaveAllWordsTableInto: aDirectory [
+DataCollector >> createAndSaveAllWordsTableFrom: aCollectionOfProjectModels into: aDirectory [
 	| table |
-	table := self tableBuilder allWordsTableFrom: self projectModels.
+	table := self tableBuilder allWordsTableFrom: aCollectionOfProjectModels.
 	self writeTable: table toCsv: (self allWordsFileIn: aDirectory).
 ]
 
 { #category : #'as yet unclassified' }
-DataCollector >> createAndSaveExternalTables [
-	self createAndSaveTablesInto: self externalDataDirectory
-]
-
-{ #category : #'as yet unclassified' }
-DataCollector >> createAndSaveInternalTables [
-	self createAndSaveTablesInto: self internalDataDirectory
-]
-
-{ #category : #'as yet unclassified' }
-DataCollector >> createAndSaveMethodsTableInto: aDirectory [
+DataCollector >> createAndSaveMethodsTableFrom: aCollectionOfProjectModels into: aDirectory [
 	| table |
-	table := self tableBuilder methodsTableFrom: self projectModels.
+	table := self tableBuilder methodsTableFrom: aCollectionOfProjectModels.
 	self writeTable: table toCsv: (self methodsFileIn: aDirectory).
 ]
 
 { #category : #'as yet unclassified' }
-DataCollector >> createAndSaveSourcesTableInto: aDirectory [
+DataCollector >> createAndSaveSourcesTableFrom: aCollectionOfProjectModels into: aDirectory [
 	| table |
-	table := self tableBuilder sourcesTableFrom: self projectModels.
+	table := self tableBuilder sourcesTableFrom: aCollectionOfProjectModels.
 	self writeTable: table toCsv: (self sourcesFileIn: aDirectory).
 ]
 
 { #category : #'as yet unclassified' }
-DataCollector >> createAndSaveSubtokensTableInto: aDirectory [
+DataCollector >> createAndSaveSubtokensTableFrom: aCollectionOfProjectModels into: aDirectory [
 	| table |
-	table := self tableBuilder subtokensTableFrom: self projectModels.
+	table := self tableBuilder subtokensTableFrom: aCollectionOfProjectModels.
 	self writeTable: table toCsv: (self subtokensFileIn: aDirectory).
 ]
 
 { #category : #'as yet unclassified' }
-DataCollector >> createAndSaveTablesInto: aDirectory [
-	self createAndSaveMethodsTableInto: aDirectory.
-	self createAndSaveSourcesTableInto: aDirectory.
-	self createAndSaveTokensTableInto: aDirectory.
-	self createAndSaveSubtokensTableInto: aDirectory.
-	self createAndSaveWordsTableInto: aDirectory.
-	self createAndSaveAllWordsTableInto: aDirectory.
+DataCollector >> createAndSaveTables [
+	self createAndSaveTablesFrom: self projectModels into: self dataDirectory
 ]
 
 { #category : #'as yet unclassified' }
-DataCollector >> createAndSaveTokensTableInto: aDirectory [
+DataCollector >> createAndSaveTablesFrom: aCollectionOfProjectModels [
+	self createAndSaveTablesFrom: aCollectionOfProjectModels into: self dataDirectory
+]
+
+{ #category : #'as yet unclassified' }
+DataCollector >> createAndSaveTablesFrom: aCollectionOfProjectModels into: aDirectory [
+	self createAndSaveMethodsTableFrom: aCollectionOfProjectModels into: aDirectory.
+	self createAndSaveSourcesTableFrom: aCollectionOfProjectModels into: aDirectory.
+	self createAndSaveTokensTableFrom: aCollectionOfProjectModels into: aDirectory.
+	self createAndSaveSubtokensTableFrom: aCollectionOfProjectModels into: aDirectory.
+	self createAndSaveWordsTableFrom: aCollectionOfProjectModels into: aDirectory.
+	self createAndSaveAllWordsTableFrom: aCollectionOfProjectModels into: aDirectory.
+]
+
+{ #category : #'as yet unclassified' }
+DataCollector >> createAndSaveTokensTableFrom: aCollectionOfProjectModels into: aDirectory [
 	| table |
-	table := self tableBuilder tokensTableFrom: self projectModels.
+	table := self tableBuilder tokensTableFrom: aCollectionOfProjectModels.
 	self writeTable: table toCsv: (self tokensFileIn: aDirectory).
 ]
 
 { #category : #'as yet unclassified' }
-DataCollector >> createAndSaveWordsTableInto: aDirectory [
+DataCollector >> createAndSaveWordsTableFrom: aCollectionOfProjectModels into: aDirectory [
 	| table |
-	table := self tableBuilder wordsTableFrom: self projectModels.
+	table := self tableBuilder wordsTableFrom: aCollectionOfProjectModels.
 	self writeTable: table toCsv: (self wordsFileIn: aDirectory).
 ]
 
 { #category : #'as yet unclassified' }
 DataCollector >> dataDirectory [
-	^ self workingDirectory / 'data'
-]
-
-{ #category : #'as yet unclassified' }
-DataCollector >> externalDataDirectory [
-	^ self dataDirectory / 'external'
-]
-
-{ #category : #'as yet unclassified' }
-DataCollector >> externalProjectsFile [
-	^ self workingDirectory / 'projects' / 'external-projects.csv'.
+	self subclassResponsibility 
 ]
 
 { #category : #initialization }
@@ -135,16 +111,6 @@ DataCollector >> initialize [
 	super initialize.
 	methodCollector := MethodCollector new.
 	tableBuilder := DataFrameBuilder new.
-]
-
-{ #category : #'as yet unclassified' }
-DataCollector >> internalDataDirectory [
-	^ self dataDirectory / 'internal'
-]
-
-{ #category : #'as yet unclassified' }
-DataCollector >> internalProjectsFile [
-	^ self workingDirectory / 'projects' / 'internal-projects.csv'.
 ]
 
 { #category : #accessing }
@@ -172,25 +138,14 @@ DataCollector >> projectModels: anObject [
 	projectModels := anObject
 ]
 
-{ #category : #accessing }
-DataCollector >> readExternalProjectsMetadata [
-	projectModels := ProjectsReader readExternalProjectsFrom: self externalProjectsFile.
-]
-
-{ #category : #accessing }
-DataCollector >> readInternalProjectsMetadata [
-	projectModels := ProjectsReader readInternalProjectsFrom: self internalProjectsFile.
+{ #category : #'as yet unclassified' }
+DataCollector >> readProjectsMetadata [ 
+	self subclassResponsibility 
 ]
 
 { #category : #'as yet unclassified' }
 DataCollector >> sourcesFileIn: aDirectory [
 	^ aDirectory / 'sources.csv'
-]
-
-{ #category : #'as yet unclassified' }
-DataCollector >> start [ 	
-	self collectDataFromInternalProjects.
-	self collectDataFromExternalProjects.
 ]
 
 { #category : #'as yet unclassified' }
