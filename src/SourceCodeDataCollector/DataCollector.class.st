@@ -79,6 +79,7 @@ DataCollector >> createAndSaveTablesFrom: aCollectionOfProjectModels [
 
 { #category : #'as yet unclassified' }
 DataCollector >> createAndSaveTablesFrom: aCollectionOfProjectModels into: aDirectory [
+	aDirectory ensureCreateDirectory.
 	self createAndSaveMethodsTableFrom: aCollectionOfProjectModels into: aDirectory.
 	self createAndSaveSourcesTableFrom: aCollectionOfProjectModels into: aDirectory.
 	self createAndSaveTokensTableFrom: aCollectionOfProjectModels into: aDirectory.
