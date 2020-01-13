@@ -27,7 +27,7 @@ DataFrameBuilder >> allWordsTableFrom: projectModels [
 
 { #category : #'instance creation' }
 DataFrameBuilder >> methodsTableColumnNames [
-	^ #(id project package class protocol selector linesOfCode)
+	^ #(id project package class protocol selector linesOfCode isTestClass) 
 ]
 
 { #category : #'instance creation' }
@@ -43,7 +43,8 @@ DataFrameBuilder >> methodsTableFrom: projectModels [
 					methodModel methodClass name .
 					methodModel protocol .
 					methodModel name .
-					methodModel linesOfCode
+					methodModel linesOfCode .
+					methodModel isTestClass
 				} ] ] ] .
 	
 	^ DataFrame

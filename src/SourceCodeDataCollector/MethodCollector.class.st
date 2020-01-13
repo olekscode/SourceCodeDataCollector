@@ -21,7 +21,8 @@ MethodCollector >> collectDataFromMethod: aMethod [
 		tokenTypes: aMethod tokenTypes;
 		subtokens: aMethod subtokens;
 		words: aMethod wordsFromIdentifierNames;
-		allWords: aMethod wordsFromSourceCode.
+		allWords: aMethod wordsFromSourceCode;
+		isTestClass: aMethod methodClass isTestCase.
 		
 	self updateMethodId.
 	^ method

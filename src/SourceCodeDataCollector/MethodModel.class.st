@@ -12,7 +12,8 @@ Class {
 		'tokenTypes',
 		'subtokens',
 		'words',
-		'allWords'
+		'allWords',
+		'isTestClass'
 	],
 	#category : #'SourceCodeDataCollector-Models'
 }
@@ -35,6 +36,16 @@ MethodModel >> id [
 { #category : #accessing }
 MethodModel >> id: anObject [
 	id := anObject
+]
+
+{ #category : #accessing }
+MethodModel >> isTestClass [
+	^ isTestClass
+]
+
+{ #category : #accessing }
+MethodModel >> isTestClass: anObject [
+	isTestClass := anObject
 ]
 
 { #category : #accessing }
