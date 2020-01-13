@@ -5,7 +5,8 @@ Class {
 		'repositoryOwner',
 		'repositoryName',
 		'commit',
-		'codeDirectory'
+		'codeDirectory',
+		'group'
 	],
 	#category : #'SourceCodeDataCollector-Models'
 }
@@ -28,6 +29,21 @@ ExternalProjectModel >> commit [
 { #category : #accessing }
 ExternalProjectModel >> commit: anObject [
 	commit := anObject
+]
+
+{ #category : #accessing }
+ExternalProjectModel >> group [
+	^ group
+]
+
+{ #category : #accessing }
+ExternalProjectModel >> group: anObject [
+	group := anObject
+]
+
+{ #category : #actions }
+ExternalProjectModel >> load [
+	self metacello load: group.
 ]
 
 { #category : #'as yet unclassified' }

@@ -7,7 +7,7 @@ Class {
 { #category : #accessing }
 ExternalDataCollector >> collectMethods [
 	self projectModels do: [ :projectModel |
-		projectModel metacello load.
+		projectModel load.
 		self methodCollector collectMethodsFromProject: projectModel.
 		
 		self createAndSaveTablesFrom: { projectModel }
