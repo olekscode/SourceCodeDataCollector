@@ -15,7 +15,13 @@ Metacello new
 ## Usage Example
 
 ```Smalltalk
-dir := '/Users/oleks/Desktop/2019-sourcecodedata' asFileReference.
-dataCollector := DataCollector withWorkingDirectory: dir.
+dir := '/Users/oleks/Documents/Research/2019-sourcecodedata' asFileReference.
+```
+```Smalltalk
+dataCollector := InternalDataCollector withWorkingDirectory: dir.
+dataCollector start.
+```
+```Smalltalk
+dataCollector := ExternalDataCollector withWorkingDirectory: dir.
 dataCollector start.
 ```
